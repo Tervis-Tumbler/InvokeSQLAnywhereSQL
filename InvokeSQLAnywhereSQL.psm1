@@ -19,6 +19,7 @@ $DatabaseEngineClassMap = [PSCustomObject][Ordered]@{
     Connection = "SAConnection"
     Command = "SACommand"
     Adapter = "SADataAdapter"
+    AddTypeScriptBlock = {Add-iAnywhereDataSSQLAnywhereType}
 },
 [PSCustomObject][Ordered]@{
     Name = "Oracle"
@@ -26,6 +27,7 @@ $DatabaseEngineClassMap = [PSCustomObject][Ordered]@{
     Connection = "OracleConnection"
     Command = "OracleCommand"
     Adapter = "OracleDataAdapter"
+    AddTypeScriptBlock = {Add-OracleManagedDataAccessType}
 },
 [PSCustomObject][Ordered]@{
     Name = "MSSQL"
@@ -55,6 +57,7 @@ function Invoke-SQLAnywhereSQL {
     )
     $ClassMap = Get-DatabaseEngineClassMap -Name $DatabaseEngineClassMapName
     $NameSpace = $ClassMap.NameSpace
+    & $ClassMap.AddTypeScriptBlock
 
     $Connection = New-Object -TypeName "$NameSpace.$($ClassMap.Connection)" $ConnectionString
     $Command = New-Object "$NameSpace.$($ClassMap.Command)" $SQLCommand,$Connection
