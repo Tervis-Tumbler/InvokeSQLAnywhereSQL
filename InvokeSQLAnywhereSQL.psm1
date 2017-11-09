@@ -1,5 +1,5 @@
 ﻿function Install-InvokeSQLAnywhereSQL {
-    choco install sqlanywhereclient -version 12.0.1
+    choco install sqlanywhereclient -version 12.0.1 -y
 }
 
 function ConvertTo-SQLAnywhereConnectionString {
